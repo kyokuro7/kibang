@@ -1,0 +1,311 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="referrer" content="no-referrer">
+<title>Macanime</title>
+<style>
+:root{
+  --cream:#fff9f2;--ink:#4b4458;--muted:#5e566b;--line:#eadfe9;--white:#fff;
+  /* palet macaron (warna solid, tanpa gradasi) */
+  --pink:#f9c9d9;--mint:#c9ebda;--lavender:#dccff3;--peach:#ffdcc2;--lemon:#fff3b8;--sky:#cbe4f7;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--cream);color:var(--ink);font-family:ui-rounded,"Nunito","Segoe UI",system-ui,-apple-system,sans-serif;line-height:1.55}
+a{color:inherit;text-decoration:none}
+img{max-width:100%;display:block}
+h1,h2,h3{line-height:1.25}
+:focus-visible{outline:3px solid var(--ink);outline-offset:2px}
+.wrap{max-width:1100px;margin:0 auto;padding:0 16px}
+
+.top{background:var(--white);border-bottom:3px solid var(--lavender);position:sticky;top:0;z-index:10}
+.bar{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;padding-top:10px;padding-bottom:10px}
+.logo{font-size:20px;font-weight:800}
+nav{display:flex;gap:6px;flex-wrap:wrap}
+nav a{padding:6px 14px;border-radius:999px;font-weight:600;font-size:14px}
+nav a:hover,nav a.on{background:var(--lemon)}
+
+.hero{background:var(--pink);border-radius:28px;padding:28px 20px;margin:20px 0 22px}
+.hero.small{padding:16px}
+.hero h1{margin:0 0 6px;font-size:clamp(24px,5vw,38px)}
+.hero p{margin:0 0 16px;color:var(--muted)}
+.search{display:flex;gap:8px}
+.search input{flex:1;min-width:0;padding:12px 18px;border-radius:999px;border:2px solid var(--white);background:var(--white);font:inherit;color:inherit}
+.btn{display:inline-block;border:0;cursor:pointer;font:inherit;font-weight:700;background:var(--lavender);color:var(--ink);padding:11px 20px;border-radius:999px;box-shadow:0 3px 0 var(--line)}
+.btn:hover{background:var(--mint)}
+
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chips.scroll{flex-wrap:nowrap;overflow-x:auto;padding-bottom:8px;scrollbar-width:thin}
+.chip{flex:0 0 auto;background:var(--white);border:2px solid var(--line);padding:5px 14px;border-radius:999px;font-size:13px;font-weight:600;white-space:nowrap}
+.chip:hover{background:var(--lemon)}
+.chip.on{background:var(--pink);border-color:var(--pink)}
+
+.sec-title{display:flex;align-items:baseline;justify-content:space-between;gap:12px;margin:28px 0 14px}
+.sec-title h1,.sec-title h2{margin:0;font-size:22px}
+.more{font-size:13px;color:var(--muted);font-weight:600}
+a.more:hover{text-decoration:underline}
+
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:14px}
+@media(min-width:640px){.grid{grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:18px}}
+.card{display:flex;flex-direction:column;border-radius:20px;overflow:hidden;box-shadow:0 4px 0 var(--line);transition:transform .15s}
+.card:hover{transform:translateY(-3px)}
+.c0{background:var(--pink)}.c1{background:var(--mint)}.c2{background:var(--lavender)}
+.c3{background:var(--peach)}.c4{background:var(--lemon)}.c5{background:var(--sky)}
+.poster{position:relative;aspect-ratio:2/3;background:rgba(255,255,255,.55)}
+.poster img{width:100%;height:100%;object-fit:cover}
+.badge{position:absolute;top:8px;right:8px;background:var(--white);font-size:12px;font-weight:700;padding:2px 9px;border-radius:999px}
+.badge.time{right:auto;left:8px;background:var(--lemon)}
+.card-body{padding:10px 12px 12px}
+.card h3{margin:0;font-size:14px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.card p{margin:4px 0 0;font-size:12px;color:var(--muted);font-weight:600}
+
+.box{background:var(--white);border-radius:20px;padding:18px;box-shadow:0 4px 0 var(--line)}
+.box.err{background:var(--peach)}
+.box p{margin:6px 0 0}
+
+.detail{display:grid;gap:18px;margin-top:20px}
+@media(min-width:720px){.detail{grid-template-columns:260px 1fr;align-items:start}}
+.panel{background:var(--white);border-radius:24px;padding:18px;box-shadow:0 4px 0 var(--line)}
+.poster-panel{background:var(--lavender);padding:10px}
+.poster-panel img{width:100%;border-radius:16px}
+.panel h1{margin:0 0 12px;font-size:clamp(22px,4vw,30px)}
+.label{margin:18px 0 4px;font-size:14px;color:var(--muted)}
+.syn{margin:0 0 18px}
+
+.eps{list-style:none;margin:0;padding:0;display:grid;gap:10px}
+.ep{display:flex;align-items:center;gap:12px;padding:10px 14px;border-radius:18px;box-shadow:0 3px 0 var(--line)}
+.ep:hover{transform:translateY(-2px)}
+.num{flex:0 0 auto;min-width:40px;text-align:center;background:var(--white);font-weight:800;padding:4px 8px;border-radius:12px}
+.ep-info{flex:1;display:flex;flex-direction:column;min-width:0}
+.ep-info small{color:var(--muted);font-weight:600}
+.go{font-weight:800}
+
+.pager{display:flex;justify-content:center;gap:10px;margin:28px 0 0;flex-wrap:wrap}
+.foot{margin-top:48px;padding:22px 0 34px;background:var(--mint);text-align:center;font-size:13px}
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="wrap bar">
+    <a href="#/" class="logo">🧁 Macanime</a>
+    <nav id="nav">
+      <a href="#/" data-p="/">Beranda</a>
+      <a href="#/jadwal" data-p="/jadwal">Jadwal</a>
+      <a href="#/daftar" data-p="/daftar">Daftar</a>
+      <a href="#/cari" data-p="/cari">Cari</a>
+    </nav>
+  </div>
+</header>
+<main class="wrap" id="app"></main>
+<footer class="foot">
+  <div class="wrap">Situs penggemar tidak resmi. Data diambil dari mirainime.com dan hak ciptanya milik pemilik aslinya.</div>
+</footer>
+
+<script>
+// ====== PENGATURAN ======
+const API_BASE = "https://api.rexxgraph.my.id";
+// Isi hanya kalau API sudah pakai API key. Awas: di website HTML murni, kunci ini bisa dilihat siapa saja.
+const API_KEY = "";
+
+// ====== DATA & UTIL ======
+const HARI = ["Senin","Selasa","Rabu","Kamis","Jumat","Sabtu","Minggu"];
+const GENRES = [
+  ["action","Action"],["adult-cast","Adult Cast"],["adventure","Adventure"],["anthropomorphic","Anthropomorphic"],
+  ["avant-garde","Avant Garde"],["award-winning","Award Winning"],["boys-love","Boys Love"],["cgdct","CGDCT"],
+  ["comedy","Comedy"],["crossdressing","Crossdressing"],["detective","Detective"],["drama","Drama"],["ecchi","Ecchi"],
+  ["fantasy","Fantasy"],["gag-humor","Gag Humor"],["girls-love","Girls Love"],["gore","Gore"],["gourmet","Gourmet"],
+  ["harem","Harem"],["historical","Historical"],["horror","Horror"],["isekai","Isekai"],["iyashikei","Iyashikei"],
+  ["love-polygon","Love Polygon"],["mahou-shoujo","Mahou Shoujo"],["martial-arts","Martial Arts"],["mecha","Mecha"],
+  ["military","Military"],["music","Music"],["mystery","Mystery"],["mythology","Mythology"],
+  ["organized-crime","Organized Crime"],["otaku-culture","Otaku Culture"],["parody","Parody"],
+  ["performing-arts","Performing Arts"],["psychological","Psychological"],["reincarnation","Reincarnation"],
+  ["romance","Romance"],["samurai","Samurai"],["school","School"],["sci-fi","Sci-Fi"],["seinen","Seinen"],
+  ["shoujo","Shoujo"],["shounen","Shounen"],["slice-of-life","Slice of Life"],["sports","Sports"],
+  ["super-power","Super Power"],["supernatural","Supernatural"],["survival","Survival"],["suspense","Suspense"],
+  ["thriller","Thriller"],["time-travel","Time Travel"],["urban-fantasy","Urban Fantasy"],["video-game","Video Game"],
+  ["villainess","Villainess"],["workplace","Workplace"]
+];
+const genreLabel = (s) => (GENRES.find((g) => g[0] === s) || [])[1] || s;
+const slugify = (g) => g.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
+const hariIni = () => new Date().toLocaleDateString("id-ID", { weekday: "long", timeZone: "Asia/Jakarta" });
+
+// Semua teks dari API dimasukkan lewat DOM (bukan innerHTML) supaya aman dari injeksi
+const safeUrl = (u) => /^(https:\/\/|#\/)/.test(String(u));
+function el(tag, props, ...kids) {
+  const n = document.createElement(tag);
+  for (const [k, v] of Object.entries(props || {})) {
+    if (v == null || v === false) continue;
+    if (k === "class") n.className = v;
+    else if (k === "href" || k === "src") { if (safeUrl(v)) n.setAttribute(k, v); }
+    else n.setAttribute(k, v);
+  }
+  for (const kid of kids.flat()) {
+    if (kid == null || kid === false) continue;
+    n.append(kid.nodeType ? kid : document.createTextNode(String(kid)));
+  }
+  return n;
+}
+
+// ====== API (cache 5 menit di browser) ======
+const cache = new Map();
+async function api(path) {
+  const hit = cache.get(path);
+  if (hit && Date.now() - hit.t < 300000) return hit.data;
+  const res = await fetch(API_BASE + path, API_KEY ? { headers: { "x-api-key": API_KEY } } : undefined);
+  let json;
+  try { json = await res.json(); } catch { throw new Error("Respons API tidak valid (status " + res.status + ")"); }
+  if (!json.ok) throw new Error(json.error || "Error " + res.status);
+  cache.set(path, { t: Date.now(), data: json.data });
+  return json.data;
+}
+
+// ====== KOMPONEN ======
+function card(a, i, time) {
+  const meta = [a.type, a.episode != null ? "EP " + a.episode : null].filter(Boolean).join(" · ");
+  return el("a", { class: "card c" + (i % 6), href: "#/anime/" + encodeURIComponent(a.slug) },
+    el("div", { class: "poster" },
+      a.poster && el("img", { src: a.poster, alt: a.title, loading: "lazy" }),
+      a.score != null && el("span", { class: "badge" }, "★ " + a.score),
+      time && el("span", { class: "badge time" }, time)),
+    el("div", { class: "card-body" }, el("h3", null, a.title), meta && el("p", null, meta)));
+}
+const grid = (list, withTime) => el("div", { class: "grid" }, list.map((a, i) => card(a, i, withTime ? a.time : null)));
+const box = (text) => el("div", { class: "box" }, text);
+const errBox = (msg) => el("div", { class: "box err" }, el("strong", null, "Gagal memuat data."), el("p", null, msg));
+const title = (t, right) => el("div", { class: "sec-title" }, el("h2", null, t), right);
+
+function searchForm(value) {
+  const input = el("input", { type: "search", name: "q", placeholder: "Cari judul anime...", "aria-label": "Cari anime" });
+  input.value = value || "";
+  const form = el("form", { class: "search" }, input, el("button", { type: "submit", class: "btn" }, "Cari"));
+  form.addEventListener("submit", (e) => {
+    e.preventDefault();
+    const q = input.value.trim();
+    location.hash = q ? "#/cari?q=" + encodeURIComponent(q) : "#/cari";
+  });
+  return form;
+}
+function genreChips(active) {
+  return el("div", { class: "chips scroll" },
+    GENRES.map(([s, l]) => el("a", { class: "chip" + (active === s ? " on" : ""), href: "#/cari?genre=" + s }, l)));
+}
+
+// ====== HALAMAN ======
+async function pageHome() {
+  const hari = hariIni();
+  const [ongoing, jadwal] = await Promise.allSettled([
+    api("/ongoing?max_ep=13"), // menyaring anime panjang (One Piece, Conan, dll)
+    api("/schedule?day=" + hari.toLowerCase()),
+  ]);
+  const today = jadwal.status === "fulfilled" ? Object.values(jadwal.value).flat() : [];
+  return [
+    el("section", { class: "hero" }, el("h1", null, "Nonton apa hari ini?"),
+      el("p", null, "Cari anime favoritmu atau lihat yang sedang tayang musim ini."), searchForm()),
+    genreChips(),
+    title("Tayang hari ini · " + hari, el("a", { class: "more", href: "#/jadwal" }, "Semua jadwal →")),
+    jadwal.status === "rejected" ? errBox(jadwal.reason.message)
+      : today.length ? grid(today, true) : box("Belum ada jadwal untuk hari ini."),
+    title("Sedang tayang"),
+    ongoing.status === "rejected" ? errBox(ongoing.reason.message) : grid(ongoing.value),
+  ];
+}
+
+async function pageJadwal(q) {
+  const minta = (q.get("hari") || hariIni()).toLowerCase();
+  const pilih = HARI.find((h) => h.toLowerCase() === minta) || "Senin";
+  const data = await api("/schedule?day=" + pilih.toLowerCase());
+  const items = data[pilih] || Object.values(data).flat();
+  return [
+    el("div", { class: "sec-title" }, el("h1", null, "Jadwal Tayang")),
+    el("div", { class: "chips scroll" },
+      HARI.map((h) => el("a", { class: "chip" + (h === pilih ? " on" : ""), href: "#/jadwal?hari=" + h.toLowerCase() }, h))),
+    title(pilih, el("span", { class: "more" }, "Jam mengikuti situs sumber")),
+    items.length ? grid(items, true) : box("Tidak ada anime yang tayang di hari " + pilih + "."),
+  ];
+}
+
+async function pageDaftar(q) {
+  const page = Math.max(1, parseInt(q.get("page")) || 1);
+  const data = await api("/anime?page=" + page);
+  const list = data.results || [];
+  return [
+    title("Daftar Anime", el("span", { class: "more" }, "Halaman " + page)),
+    list.length ? grid(list) : box("Tidak ada anime di halaman ini."),
+    el("div", { class: "pager" },
+      page > 1 && el("a", { class: "btn", href: "#/daftar?page=" + (page - 1) }, "← Sebelumnya"),
+      list.length > 0 && el("a", { class: "btn", href: "#/daftar?page=" + (page + 1) }, "Berikutnya →")),
+  ];
+}
+
+async function pageCari(q) {
+  const kata = (q.get("q") || "").trim();
+  const genre = (q.get("genre") || "").trim();
+  let judul = "Cari Anime", hasil = null;
+  if (kata) { judul = "Hasil untuk “" + kata + "”"; hasil = await api("/search?q=" + encodeURIComponent(kata)); }
+  else if (genre) { judul = "Genre: " + genreLabel(genre); hasil = await api("/genre/" + encodeURIComponent(genre)); }
+  return [
+    el("section", { class: "hero small" }, searchForm(kata)),
+    genreChips(genre),
+    el("div", { class: "sec-title" }, el("h1", null, judul)),
+    !hasil ? box("Ketik judul di kolom pencarian, atau pilih genre di atas.")
+      : hasil.length ? grid(hasil) : box("Tidak ada hasil. Coba kata kunci lain."),
+  ];
+}
+
+async function pageDetail(slug) {
+  const d = await api("/anime/" + encodeURIComponent(slug));
+  document.title = (d.title || "Detail Anime") + " · Macanime";
+  const eps = [...(d.episodes || [])].sort((a, b) => b.number - a.number);
+  return [
+    el("div", { class: "detail" },
+      el("div", { class: "panel poster-panel" }, d.poster && el("img", { src: d.poster, alt: d.title })),
+      el("div", { class: "panel" },
+        el("h1", null, d.title),
+        d.genres && d.genres.length > 0 && el("div", { class: "chips" },
+          d.genres.map((g) => el("a", { class: "chip", href: "#/cari?genre=" + slugify(g) }, g))),
+        el("h3", { class: "label" }, "Sinopsis"),
+        el("p", { class: "syn" }, d.synopsis || "Sinopsis belum tersedia."),
+        el("a", { class: "btn", href: "https://mirainime.com/anime/" + encodeURIComponent(slug), target: "_blank", rel: "noopener noreferrer" }, "Buka di Mirainime ↗"))),
+    title("Episode", el("span", { class: "more" }, eps.length + " episode")),
+    eps.length ? el("ul", { class: "eps" }, eps.map((e, i) =>
+      el("li", null, el("a", { class: "ep c" + (i % 6), href: e.url, target: "_blank", rel: "noopener noreferrer" },
+        el("span", { class: "num" }, e.number),
+        el("span", { class: "ep-info" }, el("strong", null, e.title || "Episode " + e.number), e.date && el("small", null, e.date)),
+        el("span", { class: "go" }, "↗")))))
+      : box("Belum ada episode."),
+  ];
+}
+
+// ====== ROUTER (berbasis #hash, jadi tidak butuh server khusus) ======
+const app = document.getElementById("app");
+let token = 0;
+async function route() {
+  const my = ++token;
+  const raw = location.hash.slice(1) || "/";
+  const i = raw.indexOf("?");
+  const path = i < 0 ? raw : raw.slice(0, i);
+  const q = new URLSearchParams(i < 0 ? "" : raw.slice(i + 1));
+  document.title = "Macanime";
+  document.querySelectorAll("#nav a").forEach((a) => a.classList.toggle("on", a.dataset.p === (path.startsWith("/anime/") ? "/daftar" : path)));
+  app.replaceChildren(box("Memuat..."));
+  window.scrollTo(0, 0);
+  let nodes;
+  try {
+    if (path === "/") nodes = await pageHome();
+    else if (path === "/jadwal") nodes = await pageJadwal(q);
+    else if (path === "/daftar") nodes = await pageDaftar(q);
+    else if (path === "/cari") nodes = await pageCari(q);
+    else if (path.startsWith("/anime/")) nodes = await pageDetail(decodeURIComponent(path.slice(7)));
+    else nodes = [box("Halaman tidak ditemukan.")];
+  } catch (e) {
+    nodes = [errBox(e.message)];
+  }
+  if (my === token) app.replaceChildren(...nodes);
+}
+addEventListener("hashchange", route);
+route();
+</script>
+</body>
+</html>
